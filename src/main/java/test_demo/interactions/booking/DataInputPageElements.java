@@ -9,9 +9,8 @@ public class DataInputPageElements {
     static By DEPOSIT = By.cssSelector("#form #depositpaid");
     static By CHECK_IN = By.cssSelector("#form #checkin");
     static By CHECK_OUT = By.cssSelector("#form #checkout");
-    static By SAVE_BUTTON = By.cssSelector("#form input[value~=\"Save\"]");
+    static By SAVE_BUTTON = By.cssSelector("#form input[value*=\"Save\"]");
 
     static By DATE_PICKER = By.cssSelector("#ui-datepicker-div");
-
 }
 
