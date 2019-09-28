@@ -4,7 +4,6 @@ Feature: Testing known regressions
   e.g. if an issue has not occurred for a while then scenario does not need to be run on
   every commit but should be run before release.
 
-  @pending
   Scenario: Check-out should be after check-in
     Given I want to use the booking website
     When I try to create a booking with the check-out date before the check-in date

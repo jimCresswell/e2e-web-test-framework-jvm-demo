@@ -5,7 +5,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
+import org.joda.time.IllegalFieldValueException;
 import test_demo.data.Booking;
+import test_demo.data.TestData;
 import test_demo.interactions.booking.BookingSteps;
 import test_demo.interactions.navigation.NavigateToSteps;
 
@@ -32,6 +34,11 @@ public class StepDefinitions {
     public void i_enter_booking_details(String bookingType) {
         Booking booking = bookingSteps.tryToCreateBooking(bookingType);
         bookingSteps.setIdentifyingFirstName(booking.getFirstName());
+    }
+
+    @When("^I try to create a booking with the check-out date before the check-in date$")
+    public void i_try_to_leave_before_i_arrive() {
+        i_enter_booking_details(TestData.OUT_BEFORE_IN_BOOKING);
     }
 
     /**
@@ -74,12 +81,4 @@ public class StepDefinitions {
             }
         }
      }
-
-    @When("^I try to create a booking with the check-out date before the check-in date$")
-    public void i_try_to_leave_before_i_arrive() {
-    }
-
-
-
-
 }
