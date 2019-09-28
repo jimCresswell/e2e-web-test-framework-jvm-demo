@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 public class DataInputPageElements {
     static By FIRST_NAME = By.cssSelector("#form #firstname");
-    static By LAST_NAME = By.cssSelector("#form #lasttname");
+    static By LAST_NAME = By.cssSelector("#form #lastname");
     static By PRICE = By.cssSelector("#form #totalprice");
     static By DEPOSIT = By.cssSelector("#form #depositpaid");
     static By CHECK_IN = By.cssSelector("#form #checkin");
