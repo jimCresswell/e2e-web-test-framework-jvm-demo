@@ -8,6 +8,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class TestData {
 
+    public static final String VALID_BOOKING = "valid";
+    public static final String INVALID_BOOKING = "invalid";
+    public static final String OUT_BEFORE_IN_BOOKING = "outBeforeIn";
+
     /**
      * Get test data based on a descriptor string e.g. "valid" or "invalid"
      * @param bookingType the booking type description.
@@ -16,9 +20,9 @@ public class TestData {
      */
     static public Booking getBooking(@NotNull String bookingType) throws IllegalArgumentException {
         switch (bookingType) {
-            case "valid": return getValidBooking();
-            case "invalid": return getInvalidBooking();
-            case "outBeforeIn": return getOutBeforeInBooking();
+            case VALID_BOOKING: return getValidBooking();
+            case INVALID_BOOKING: return getInvalidBooking();
+            case OUT_BEFORE_IN_BOOKING: return getOutBeforeInBooking();
             default: throw new IllegalArgumentException("Unsupported booking type: " + bookingType);
         }
     }
@@ -47,7 +51,7 @@ public class TestData {
      */
     @NotNull
     private static Booking getOutBeforeInBooking() {
-        return new Booking("John", "Smith", "100", true, "2021-01-20", "1970-01-01");
+        return new Booking("John " + generateRandomName(), "Smith", "100", true, "2021-01-20", "1970-01-01");
     }
 
     @NotNull
