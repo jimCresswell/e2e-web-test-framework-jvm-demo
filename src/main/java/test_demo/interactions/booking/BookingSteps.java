@@ -19,11 +19,14 @@ public class BookingSteps extends UIInteractionSteps {
     // Save the input first name.
     // The booking ID isn't available to users so
     // test on unique names.
-    private String identifyingFirstName;
+    private String identifyingFirstName = "";
 
     private int bookingWaitInSeconds = 10;
 
     public String getIdentifyingFirstName() {
+        if (identifyingFirstName.isEmpty()) {
+            throw new IllegalStateException("Tried to access identifyingFirstName without setting it first.");
+        }
         return identifyingFirstName;
     }
 
