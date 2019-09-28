@@ -4,6 +4,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.core.steps.UIInteractionSteps;
 import net.thucydides.core.annotations.Step;
 import org.jetbrains.annotations.NotNull;
+import org.openqa.selenium.By;
 import test_demo.data.Booking;
 import test_demo.data.TestData;
 
@@ -67,6 +68,16 @@ public class BookingSteps extends UIInteractionSteps {
     }
 
     /**
+     * Given the first name for a booking try to delete that booking.
+     * @param identifyingFirstName the first name.
+     */
+    @Step
+    public void tryToDeleteBookingWithFirstName(String identifyingFirstName) {
+        By deleteSelector = getBookingDeleteSelectorByFirstName(identifyingFirstName);
+        $(deleteSelector).click();
+    }
+
+    /**
      * Wait for a booking with a specified first name to turn up.
      * @param identifyingFirstName the first name.
      */
@@ -76,13 +87,13 @@ public class BookingSteps extends UIInteractionSteps {
           If the booking hasn't turned up in ten seconds there is
           a problem whether or not it eventually displays.
         */
-        $(getBookingByNameSelector(identifyingFirstName))
+        $(getBookingNameSelectorByFirstName(identifyingFirstName))
                 .withTimeoutOf(bookingWaitInSeconds, ChronoUnit.SECONDS)
                 .shouldBePresent();
     }
 
     @Step
-    public void waitForFirstNameAbsent(String identifyingFirstName) {
+    public void waitForFirstNameToFailToAppear(String identifyingFirstName) {
         /*
             I would never normally use Thread.sleep but in the case of
             waiting to make sure something asynchronous *doesn't* happen
@@ -93,7 +104,14 @@ public class BookingSteps extends UIInteractionSteps {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        $(getBookingByNameSelector(identifyingFirstName))
+        $(getBookingNameSelectorByFirstName(identifyingFirstName))
+                .shouldNotBePresent();
+    }
+
+    @Step
+    public void waitForFirstNameToDisappear(String identifyingFirstName) {
+        $(getBookingNameSelectorByFirstName(identifyingFirstName))
+                .withTimeoutOf(bookingWaitInSeconds, ChronoUnit.SECONDS)
                 .shouldNotBePresent();
     }
 

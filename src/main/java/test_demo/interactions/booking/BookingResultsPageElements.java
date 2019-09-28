@@ -9,7 +9,11 @@ public class BookingResultsPageElements {
     // These are the divs containing the data for a single booking.
     static By BOOKING_DATA_ELS = By.xpath("./div");
 
-    static public By getBookingByNameSelector(String name) {
-        return By.xpath("//*[@id=\"bookings\"]//p[contains(text(), \"" + name + "\")]");
+    static public By getBookingNameSelectorByFirstName(String firstName) {
+        return By.xpath("//*[@id=\"bookings\"]//p[contains(text(), \"" + firstName + "\")]");
+    }
+
+    static public By getBookingDeleteSelectorByFirstName(String firstName) {
+        return By.xpath("//*[@id=\"bookings\"]//p[contains(text(), \"" + firstName + "\")]/../..//input[@value=\"Delete\"]");
     }
 }
