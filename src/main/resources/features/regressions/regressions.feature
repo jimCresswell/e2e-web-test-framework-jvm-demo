@@ -1,8 +1,12 @@
 Feature: Testing known regressions
 
-  These scenarios check for know regressions. Execution frequency should depend on risk,
-  e.g. if an issue has not occurred for a while then scenario does not need to be run on
-  every commit but should be run before release.
+  These scenarios check for know regressions. Execution frequency
+  should depend on risk, e.g. if an issue has not occurred for a
+  while then scenario does not need to be run on every commit but
+  should be run before release.
+
+  Where appropriate fixed regression tests should be moved to a relevant
+  specification.
 
   Scenario: Check-out should be after check-in
     Given I want to use the booking website
