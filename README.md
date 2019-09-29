@@ -8,6 +8,14 @@ The tests are driven from user-experience level specifications contained in ["fe
 
 Because these tests are packaged as an executable JAR against a third party website the code lives in the `main` module rather than in `test`.
 
+## Use
+
+### As an Application
+`gradlew run` will run the checks and generate a Serenity test report at `target/site/serenity/index.html`.
+
+### As Part of the Check Lifecycle Task
+`gradlew check` will run the checks and generate a Serenity test report at `target/site/serenity/index.html`.
+
 ## Note on WebDriver Binaries
 
 I've included the binaries for Chromedriver 77 [src\test\resources\webdriver]. I wouldn't normally put binaries in Git but in my experience this saves a lot of time, especially with teams of mixed experience levels. These binaries will only work with Chrome/Chromium 77 and will be out of date quickly, they can be replaced with up to date versions at the [Chromdriver site](https://sites.google.com/a/chromium.org/chromedriver/downloads).

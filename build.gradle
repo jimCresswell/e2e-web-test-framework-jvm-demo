@@ -49,6 +49,9 @@ repositories {
 
 // TO DO: Update versions.
 dependencies {
+    // Runtime dependencies for the packaged version.
+    runtime files('src/main/resources')
+
     // Logging for Serenity
     implementation 'org.slf4j:slf4j-api:1.7.7'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
@@ -77,6 +80,23 @@ test {
 
 // Make sure the 'aggregate' tasks runs after the tests so the Serenity test report is generated
 test.finalizedBy(aggregate)
+
+
+// Work around Windows being unable to handle long paths.
+// See https://github.com/gradle/gradle/issues/1989
+// And inject the ChromeDriver paths for each platform
+String osName = System.getProperty("os.name").toLowerCase().split(/ /)[0];
+String driver = "chromedriver"
+if (osName.contains("win")) driver += ".exe"
+startScripts {
+    //setOptsEnvironmentVar("-Dwebdriver.chrome.driver=\"lib/webdriver/" + osName + "/" + driver + "\"")
+    doLast {
+        def winScriptFile  = file getWindowsScript()
+        def winFileText = winScriptFile.text
+        winFileText = winFileText.replaceAll('set CLASSPATH=.*', 'rem original CLASSPATH declaration replaced by:\nset CLASSPATH=%APP_HOME%\\\\lib\\\\\\*')
+        winScriptFile.text = winFileText
+    }
+}
 
 // Don't stop on test failure, so that the Serenity report generation still happens
 gradle.startParameter.continueOnFailure = true

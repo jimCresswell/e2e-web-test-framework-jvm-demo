@@ -14,12 +14,16 @@ public class TestRunner {
     public static void main(String[] args) throws IOException {
 
         // Run the main test suite.
-        JUnitCore.runClasses(TestSuite.class);
+        JUnitCore.runClasses(PackagedTestSuite.class);
+
+        // Set the input and output directories for the test report.
+        File sourceDirectory = new File("target/site/serenity/");
+        File outputDirectory = new File("../serenity_report");
+        outputDirectory.mkdirs();
 
         // Generate the aggregated test report.
-        File sourceDirectory = new File("target/site/serenity/");
         HtmlAggregateStoryReporter reporter = new HtmlAggregateStoryReporter("Hotel Booking Test Demo");
-        reporter.setOutputDirectory(sourceDirectory);
+        reporter.setOutputDirectory(outputDirectory);
         reporter.generateReportsForTestResultsFrom(sourceDirectory);
 
         // TO DO: consider automatically opening the test report in a browser?
