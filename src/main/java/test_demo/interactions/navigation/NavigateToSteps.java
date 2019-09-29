@@ -8,6 +8,6 @@ public class NavigateToSteps {
 
     @Step("Open the booking home page")
     public void bookingHomePage() {
-        bookingHomePage.open();
+        bookingHomePage.safeOpen();
     }
 }
