@@ -1,4 +1,7 @@
 Feature: Using the booking website
+  These scenarios operate through the UI and
+  identify elements by text content because
+  they are simulating a user experience.
 
   Background: The user is visiting the booking site
     Given I want to use the booking website

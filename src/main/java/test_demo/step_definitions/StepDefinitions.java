@@ -7,7 +7,7 @@ import net.thucydides.core.annotations.Steps;
 
 import test_demo.data.Booking;
 import test_demo.data.TestData;
-import test_demo.interactions.booking.BookingSteps;
+import test_demo.interactions.booking.BookingStepsUI;
 import test_demo.interactions.navigation.NavigateToSteps;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class StepDefinitions {
     NavigateToSteps navigateTo;
 
     @Steps
-    BookingSteps bookingSteps;
+    BookingStepsUI bookingStepsUI;
 
     @Given("I want to use the booking website")
     public void i_am_using_the_booking_site() {
@@ -31,8 +31,8 @@ public class StepDefinitions {
 
     @When("I try to create a (.*) booking")
     public void i_enter_booking_details(String bookingType) {
-        Booking booking = bookingSteps.tryToCreateBooking(bookingType);
-        bookingSteps.setIdentifyingFirstName(booking.getFirstName());
+        Booking booking = bookingStepsUI.tryToCreateBooking(bookingType);
+        bookingStepsUI.setIdentifyingFirstName(booking.getFirstName());
     }
 
     @When("^I try to create a booking with the check-out date before the check-in date$")
@@ -47,7 +47,7 @@ public class StepDefinitions {
 
     @When("^I delete that booking$")
     public void i_delete_that_booking() {
-        bookingSteps.tryToDeleteBookingWithFirstName(bookingSteps.getIdentifyingFirstName());
+        bookingStepsUI.tryToDeleteBookingWithFirstName(bookingStepsUI.getIdentifyingFirstName());
     }
 
     /**
@@ -58,7 +58,7 @@ public class StepDefinitions {
     @Then("that booking is (.*)")
     public void that_booking_is_accepted_or_not(String acceptedOrNot) {
         boolean bookingShouldExist = !acceptedOrNot.contains("not");
-        String identifyingFirstName = bookingSteps.getIdentifyingFirstName();
+        String identifyingFirstName = bookingStepsUI.getIdentifyingFirstName();
 
         if (bookingShouldExist) {
             checkBookingExists(identifyingFirstName);
@@ -70,12 +70,12 @@ public class StepDefinitions {
     @Then("^that booking displays on page load$")
     public void thatBookingPersistsOnPageReload() {
         navigateTo.bookingHomePage();
-        checkBookingExists(bookingSteps.getIdentifyingFirstName());
+        checkBookingExists(bookingStepsUI.getIdentifyingFirstName());
     }
 
     @Then("^the booking is removed from the booking list$")
     public void the_booking_is_removed_from_the_booking_list() {
-        checkBookingIsRemoved(bookingSteps.getIdentifyingFirstName());
+        checkBookingIsRemoved(bookingStepsUI.getIdentifyingFirstName());
     }
 
     private void checkBookingExists(String identifyingFirstName) {
@@ -84,9 +84,9 @@ public class StepDefinitions {
          but asserting against a domain specific model is more
          maintainable and extensible.
         */
-        bookingSteps.waitForFirstNamePresent(identifyingFirstName);
+        bookingStepsUI.waitForFirstNamePresent(identifyingFirstName);
 
-        List<Booking> bookingList = bookingSteps.getBookingsFromUI();
+        List<Booking> bookingList = bookingStepsUI.getBookingsFromUI();
         assertThat(bookingList)
                 .matches(bookings -> bookings.size() > 0,
                         "There should be at least one bookings")
@@ -95,18 +95,18 @@ public class StepDefinitions {
     }
 
     private void checkBookingFailsToAppear(String identifyingFirstName) {
-        bookingSteps.waitForFirstNameToFailToAppear(identifyingFirstName);
+        bookingStepsUI.waitForFirstNameToFailToAppear(identifyingFirstName);
         checkBookingNotPresent(identifyingFirstName);
     }
 
     private void checkBookingIsRemoved(String identifyingFirstName) {
-        bookingSteps.waitForFirstNameToDisappear(identifyingFirstName);
+        bookingStepsUI.waitForFirstNameToDisappear(identifyingFirstName);
         checkBookingNotPresent(identifyingFirstName);
     }
     private void checkBookingNotPresent(String identifyingFirstName) {
-        List<Booking> bookingList = bookingSteps.getBookingsFromUI();
+        List<Booking> bookingList = bookingStepsUI.getBookingsFromUI();
 
-        // If the booking list is empty then the invalid/deleted booking isn't in it, job done.
+        // If the booking list is empty then the invalid/deleted booking isn't in the UI, job done.
         if (bookingList.size() > 0) {
             assertThat(bookingList)
                     .extracting(Booking::getFirstName)
