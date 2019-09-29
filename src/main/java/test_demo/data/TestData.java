@@ -29,6 +29,11 @@ public class TestData {
 
     /**
      * Generate a valid booking with a random first name.
+     *
+     * TO DO: consider randomising all variables to improve relative
+     * test coverage and avoid passing by accident. Be aware this
+     * makes repeatable testing harder.
+     *
      * @return booking data.
      */
     @NotNull
