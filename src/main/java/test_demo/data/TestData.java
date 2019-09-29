@@ -54,6 +54,15 @@ public class TestData {
         return new Booking("John " + generateRandomName(), "Smith", "100", true, "2021-01-20", "1970-01-01");
     }
 
+    /**
+     * create a *unique* first name.
+     *
+     * First names won't work is identifiers in general because they
+     * won't be unique. The GUI does contain a unique booking ID but
+     * this isn't visible to users.
+     *
+     * @return a random alphabetic "name"
+     */
     @NotNull
     private static String generateRandomName() {
         int minLength = 10;
