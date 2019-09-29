@@ -6,7 +6,7 @@ import net.thucydides.core.webdriver.DriverConfigurationError;
 
 /**
  *  This is the "lean page object" approach.
- *  Page objects contain mostly URLs and identifiers, and actions are delegated to the Serenity steps.
+ *  Page objects contain mostly URLs and actions are delegated to the Serenity steps.
  *
  * The default URL is overridden according to the `environments` values in `serenity.conf`.
  */

@@ -32,7 +32,14 @@ public class StepDefinitionsUI {
 
     @When("I try to create a (.*) booking")
     public void i_enter_booking_details(String bookingType) {
+        // Try to create a booking through the UI with test data.
         Booking booking = bookingStepsUI.tryToCreateBooking(bookingType);
+
+        /*
+           Store the unique first name so it can later be used to verify UI contents.
+           Using unique names because bookings IDs aren't visible in the UI and these
+           tests are as far as possible simulating user experience.
+         */
         bookingStepsUI.setIdentifyingFirstName(booking.getFirstName());
     }
 
@@ -48,6 +55,7 @@ public class StepDefinitionsUI {
 
     @When("^I delete that booking$")
     public void i_delete_that_booking() {
+        // Try to delete a booking with a stored unique first name from an earlier step.
         bookingStepsUI.tryToDeleteBookingWithFirstName(bookingStepsUI.getIdentifyingFirstName());
     }
 
@@ -58,27 +66,40 @@ public class StepDefinitionsUI {
      */
     @Then("that booking is (.*)")
     public void that_booking_is_accepted_or_not(String acceptedOrNot) {
+        // Determine if the booking should have been allowed or not.
         boolean bookingShouldExist = !acceptedOrNot.contains("not");
+
+        // Get the stored unique first name from an earlier step.
         String identifyingFirstName = bookingStepsUI.getIdentifyingFirstName();
 
         if (bookingShouldExist) {
+            // Assert that the named booking is in the UI.
             checkBookingExists(identifyingFirstName);
         } else {
+            // Assert that the named booking is *not* in the UI.
             checkBookingFailsToAppear(identifyingFirstName);
         }
     }
 
     @Then("^that booking displays on page load$")
     public void thatBookingPersistsOnPageReload() {
+        // Reload the page.
         navigateTo.bookingHomePage();
+
+        // Assert that the named booking is in the UI on page load.
         checkBookingExists(bookingStepsUI.getIdentifyingFirstName());
     }
 
     @Then("^the booking is removed from the booking list$")
     public void the_booking_is_removed_from_the_booking_list() {
+        // Assert a name booking is removed from the UI after being deleted via the UI.
         checkBookingIsRemoved(bookingStepsUI.getIdentifyingFirstName());
     }
 
+    /**
+     * Check that a booking made through the UI is displayed in the UI.
+     * @param identifyingFirstName
+     */
     private void checkBookingExists(String identifyingFirstName) {
         /*
          Strictly this step is sufficient to validate the scenario
@@ -87,7 +108,13 @@ public class StepDefinitionsUI {
         */
         bookingStepsUI.waitForFirstNamePresent(identifyingFirstName);
 
+        // Get all the bookings displayed in the UI, parsed as Booking objects.
         List<Booking> bookingList = bookingStepsUI.getBookingsFromUI();
+
+        /*
+           Assert there is at least one booking and that there is
+           a booking with the correct unique first name.
+         */
         assertThat(bookingList)
                 .matches(bookings -> bookings.size() > 0,
                         "There should be at least one bookings")
@@ -96,23 +123,39 @@ public class StepDefinitionsUI {
     }
 
     private void checkBookingFailsToAppear(String identifyingFirstName) {
+        /*
+           Wait for the named booking to *fail* to appear.
+           This approach is an artifact of there being no UI feedback for invalid booking data.
+         */
         bookingStepsUI.waitForFirstNameToFailToAppear(identifyingFirstName);
+
+        // Assert the invalid booking is not present in the UI.
         checkBookingNotPresent(identifyingFirstName);
     }
 
     private void checkBookingIsRemoved(String identifyingFirstName) {
+        // Wait for a deleted booking to disappear.
         bookingStepsUI.waitForFirstNameToDisappear(identifyingFirstName);
+
+        // Assert the deleted booking is not in the UI.
         checkBookingNotPresent(identifyingFirstName);
     }
+
+    /**
+     * Assert that a named booking is not present in the UI.
+     *
+     * @param identifyingFirstName the unique booking name.
+     */
     private void checkBookingNotPresent(String identifyingFirstName) {
         List<Booking> bookingList = bookingStepsUI.getBookingsFromUI();
 
-        // If the booking list is empty then the invalid/deleted booking isn't in the UI, job done.
         if (bookingList.size() > 0) {
+            // Assert that a named booking is not in the UI.
             assertThat(bookingList)
                     .extracting(Booking::getFirstName)
                     .doesNotContain(identifyingFirstName);
         } else {
+            // If the booking list is empty then the invalid/deleted booking isn't in the UI, job done.
             assertThat(bookingList).isEmpty();
         }
     }
