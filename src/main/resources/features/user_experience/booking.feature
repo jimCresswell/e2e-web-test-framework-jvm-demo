@@ -24,7 +24,7 @@ Feature: Using the booking website
     @pending
     Examples: other basic cases
     These cases have not been implemented.
-    To implement them created the appropriate test data.
+    To implement just create the appropriate test data.
     Don't putting a lot of data driven testing in user
     experience specifications, it makes them unreadable,
     move such testing to a lower level e.g. contract testing,
