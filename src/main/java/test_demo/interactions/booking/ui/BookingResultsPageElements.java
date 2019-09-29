@@ -1,4 +1,4 @@
-package test_demo.interactions.booking;
+package test_demo.interactions.booking.ui;
 
 import org.openqa.selenium.By;
 

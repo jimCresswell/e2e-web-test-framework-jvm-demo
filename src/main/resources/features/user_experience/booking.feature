@@ -15,7 +15,7 @@ Feature: Using the booking website
     When I try to create a <booking type> booking
     Then that booking is <accepted or not>
 
-    @smoke
+    @smoke @debug
     Examples: basic booking validity
       | booking type | accepted or not |
       | valid        | accepted        |

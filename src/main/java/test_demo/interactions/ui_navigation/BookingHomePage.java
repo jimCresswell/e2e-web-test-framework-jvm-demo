@@ -1,4 +1,4 @@
-package test_demo.interactions.navigation;
+package test_demo.interactions.ui_navigation;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.DefaultUrl;

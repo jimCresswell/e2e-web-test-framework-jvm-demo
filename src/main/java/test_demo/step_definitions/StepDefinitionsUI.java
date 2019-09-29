@@ -7,17 +7,18 @@ import net.thucydides.core.annotations.Steps;
 
 import test_demo.data.Booking;
 import test_demo.data.TestData;
-import test_demo.interactions.booking.BookingStepsUI;
-import test_demo.interactions.navigation.NavigateToSteps;
+import test_demo.interactions.booking.ui.BookingStepsUI;
+import test_demo.interactions.ui_navigation.NavigateToSteps;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * These are the Cucumber step definitions, which call into the Serenity steps.
+ * These are the Cucumber step definitions for UI interactions,
+ * which call into the Serenity steps.
  */
-public class StepDefinitions {
+public class StepDefinitionsUI {
     @Steps
     NavigateToSteps navigateTo;
 

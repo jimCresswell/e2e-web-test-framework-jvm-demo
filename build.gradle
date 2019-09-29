@@ -58,7 +58,9 @@ dependencies {
     implementation 'net.serenity-bdd:serenity-core:2.0.69'
     implementation 'net.serenity-bdd:serenity-junit:2.0.69'
     implementation 'net.serenity-bdd:serenity-cucumber:1.9.39'
+    implementation 'net.serenity-bdd:serenity-rest-assured:2.0.73'
     implementation 'org.assertj:assertj-core:3.8.0'
+    implementation 'org.json:json:20190722'
 }
 
 application {
@@ -79,7 +81,10 @@ test.finalizedBy(aggregate)
 // Don't stop on test failure, so that the Serenity report generation still happens
 gradle.startParameter.continueOnFailure = true
 
-
 // Make sure the bytecode runs on older JVMs
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+description = "An demo of end-to-end of a website through the UI and network API"
+version = "1.0.0"
+

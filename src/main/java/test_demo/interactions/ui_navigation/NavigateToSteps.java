@@ -1,4 +1,4 @@
-package test_demo.interactions.navigation;
+package test_demo.interactions.ui_navigation;
 
 import net.thucydides.core.annotations.Step;
 
