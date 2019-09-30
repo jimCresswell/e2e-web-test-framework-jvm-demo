@@ -1,5 +1,6 @@
 package test_demo.step_definitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -54,4 +55,21 @@ public class StepDefinitionsNetwork {
         assertThat(bookingFromNetwork.getFirstName())
                 .matches(bookingStepsNetwork.getIdentifyingFirstName());
     }
+
+    /**
+     * Not implemented.
+     */
+    @Given("^the system contains a large number of bookings$")
+    public void the_system_contains_a_large_number_of_bookings() {
+        throw new PendingException();
+    }
+
+    /**
+     * Not implemented.
+     */
+    @When("^I try to make another booking$")
+    public void i_try_to_make_another_booking() {
+        throw new PendingException();
+    }
+
 }
