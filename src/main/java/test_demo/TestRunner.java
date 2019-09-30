@@ -1,6 +1,7 @@
 package test_demo;
 
 import net.thucydides.core.reports.html.HtmlAggregateStoryReporter;
+import org.apache.commons.io.FileUtils;
 import org.junit.runner.JUnitCore;
 
 import java.io.File;
@@ -19,6 +20,11 @@ public class TestRunner {
         // Set the input and output directories for the test report.
         File sourceDirectory = new File("target/site/serenity/");
         File outputDirectory = new File("../serenity_report");
+
+        // Make sure the output directory exists in an empty state.
+        if (outputDirectory.exists()) {
+            FileUtils.deleteDirectory(outputDirectory);
+        }
         outputDirectory.mkdirs();
 
         // Generate the aggregated test report.
