@@ -13,10 +13,17 @@ The scenarios driving the tests are in the [features directory](src/main/resourc
   * Specifications checked [through the REST API](src/main/resources/features/network_behaviour/booking_api.feature) of the service under test.
   * Scenarios describing [known regressions or bugs](src/main/resources/features/regressions/regressions.feature). These should be regularly reviewed to decide if the issues they describe are still a risk or if they should be deleted or moved to a specification.
   
-### Notes on test reliability.
+### Notes on Test Reliability.
 UI tests with WebDriver are flaky, they throw up false negative test failures frequently, due to WebDriver itself, network failures, browser rendering quirks, and the interactions of multiple asynchronous systems. Even with the small number of UI scenarios in this example test suite it is not completely reliable. This is one of the reasons that end-to-end tests through the UI should be kept to the minimum acceptable number, testing key user journeys only. More complete testing of the system and UI can pushed down to API contract tests, integration tests and UI component tests with mocked data and services.
 
 Automatically retrying failed tests is a common strategy, but it should only be done with care and discussion. What does it mean if a test passes one out of three times regularly? Clearly there is an underlying problem that could be in the code, the infrastructure, the test environment or elsewhere. Where appropriate the best option is often to push the validation to a lower level of testing, e.g. a single micro-service with mocked external services, or even an integration test.    
+
+### Notes on Test Data.
+The test data is generated dynamically in the [TestData class](src\main\java\test_demo\data\TestData.java).
+
+The test data isn't cleared from the service under test after testing as that isn't a) particularly user-like behaviour or b) necessarily a good way to maintain predictable state in a shared test instance. A better approach is to setup and tear down test instances of the service under test with known state per test run.
+
+If you want to test the end of a complex user journey frequently, and you absolutely have to do it through the UI, then where possible the service under test should be engineered to enable test state injection. 
 
 ## Use
 
