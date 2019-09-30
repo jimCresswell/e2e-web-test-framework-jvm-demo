@@ -14,7 +14,9 @@ The scenarios driving the tests are in the [features directory](src/main/resourc
   * Scenarios describing [known regressions or bugs](src/main/resources/features/regressions/regressions.feature). These should be regularly reviewed to decide if the issues they describe are still a risk or if they should be deleted or moved to a specification.
   
 ### Notes on test reliability.
-UI tests with WebDriver are flaky, they throw up false negative test failures frequently, due to WebDriver itself, network failures, browser rendering quirks, and the interactions of multiple asynchronous systems. Even with the small number of UI scenarios in this example test suite it is not completely reliable. This is one of the reasons that end-to-end tests through the UI should be kept to the minimum acceptable number, testing key user journeys only. More complete testing of the system and UI can pushed down to API contract tests, integration tests and UI component tests with mocked data and services. 
+UI tests with WebDriver are flaky, they throw up false negative test failures frequently, due to WebDriver itself, network failures, browser rendering quirks, and the interactions of multiple asynchronous systems. Even with the small number of UI scenarios in this example test suite it is not completely reliable. This is one of the reasons that end-to-end tests through the UI should be kept to the minimum acceptable number, testing key user journeys only. More complete testing of the system and UI can pushed down to API contract tests, integration tests and UI component tests with mocked data and services.
+
+Automatically retrying failed tests is a common strategy, but it should only be done with care and discussion. What does it mean if a test passes one out of three times regularly? Clearly there is an underlying problem that could be in the code, the infrastructure, the test environment or elsewhere. Where appropriate the best option is often to push the validation to a lower level of testing, e.g. a single micro-service with mocked external services, or even an integration test.    
 
 ## Use
 
@@ -24,14 +26,18 @@ The UI tests require the Chrome browser to be installed on the system. The packa
 There is nothing Chrome specific about any of the tests. If you want to run against other browsers set the [appropriate environment variables](http://www.thucydides.info/docs/serenity/#_running_serenity_tests_from_the_command_line) e.g. `webdriver.driver=firefox`, or edit the [serenity.conf](serenity.conf) file.
 
 ### As Part of the Check Lifecycle Task
-`gradlew check` will run the checks and generate a Serenity test report at `target/site/serenity/index.html`.
+`gradlew check` will run the checks and generate a Serenity test report.
+
+#### Test Results
+
+If the tests are run from Gradle two test reports are generated automatically, a Serenity report `target/site/serenity/index.html` and a Gradle report `build/reports/tests/test/index.html`.
+
+The test results in `xml` format (e.g. for integration with CI pipelines) are written to `build/test-results`. They aren't particularly detailed because the Junit XML format [doesn't support](https://github.com/serenity-bdd/serenity-core/issues/1729) the level of nested data required to make sense of Cucumber scenarios. However, these tests are intended to be very high-level only (great for finding user facing problems but not causes), detailed system checks should be happening at lower levels of testing (e.g. data-driven testing using Junit directly) and probably not end-to-end through the UI. 
 
 ### Packaging as an Application
 To package the application use `gradlew assembleDist`.
 
 ### Using as a Packaged Application
-#### Known Issues
-There are scenarios marked as `@pending` intended as examples of potential further tests to implement. Normally these scenarios are categorised as pending by the runner and included in the test report as pending tests. When the scenarios are executed from the packaged application Serenity-Cucumber attempts to run the unimplemented `@pending` tests and throws exceptions. For the time being `@pending` scenarios have been explicitly excluded from the [packaged code test suite](src\main\java\test_demo\PackagedTestSuite.java).
 
 #### Starting the Application
 To use the packaged application, unzip it (`.zip` or `.tar` according to preference), then use the platform specific start scripts.
@@ -57,3 +63,6 @@ The Serenity test report is generated in the unzipped application folder at `ser
 I've included the binaries for ChromeDriver 77 [src\test\resources\webdriver]. I wouldn't normally put binaries in Git but in my experience this saves a lot of time, especially with teams of mixed experience levels. These binaries will only work with Chrome 77 and will be out of date quickly, they can be replaced with up to date versions at the [Chromdriver site](https://sites.google.com/a/chromium.org/chromedriver/downloads).
 
 For decoupling and scalability it is better to operate the tests against a [Selenium Grid](https://github.com/SeleniumHQ/selenium/wiki/Grid2) set up. Container-based solutions e.g. [Zalenium](https://opensource.zalando.com/zalenium/) are available. 
+
+## Known Issues
+There are scenarios marked as `@pending` intended as examples of potential further tests to implement. Normally these scenarios are categorised as pending by the runner and included in the test report as pending tests. Currently in some circumstances Serenity-Cucumber attempts to run the unimplemented `@pending` tests and throws exceptions. For the time being `@pending` scenarios have been explicitly excluded from the test suites.
