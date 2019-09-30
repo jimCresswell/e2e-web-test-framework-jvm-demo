@@ -15,8 +15,7 @@ import org.junit.runner.RunWith;
         features = "../lib/features",
         // Explicitly exclude @pending tags to stop them running in the packaged version,
         // the runner is failing to mark them as pending then throwing an error when they
-        // don't work.
-        // TO DO: Figure out why @pending tags are ignored in the packaged app.
+        // don't work. Seems to be a Serenity issue, possibly with Scenario Outlines
         tags = {"~@pending"}
 )
 public class PackagedTestSuite {
