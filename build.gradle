@@ -47,22 +47,22 @@ repositories {
     jcenter()
 }
 
-// TO DO: Update versions.
+// Housekeeping: Check for updated versions.
 dependencies {
     // Runtime dependencies for the packaged version.
     runtime files('src/main/resources')
 
     // Logging for Serenity
-    implementation 'org.slf4j:slf4j-api:1.7.7'
+    implementation 'org.slf4j:slf4j-api:1.7.28'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
 
     // Test dependencies
     implementation 'junit:junit:4.12'
-    implementation 'net.serenity-bdd:serenity-core:2.0.69'
-    implementation 'net.serenity-bdd:serenity-junit:2.0.69'
-    implementation 'net.serenity-bdd:serenity-cucumber:1.9.39'
+    implementation 'net.serenity-bdd:serenity-core:2.0.73'
+    implementation 'net.serenity-bdd:serenity-junit:2.0.73'
+    implementation 'net.serenity-bdd:serenity-cucumber:1.9.45'
     implementation 'net.serenity-bdd:serenity-rest-assured:2.0.73'
-    implementation 'org.assertj:assertj-core:3.8.0'
+    implementation 'org.assertj:assertj-core:3.13.2'
     implementation 'org.json:json:20190722'
 }
 
@@ -74,6 +74,10 @@ application {
 // Standard Serenity Gradle config.
 // TO DO: investigate.
 test {
+    filter {
+        includeTestsMatching "test_demo.TestSuite"
+    }
+
     testLogging.showStandardStreams = true
     systemProperties System.getProperties()
 }
