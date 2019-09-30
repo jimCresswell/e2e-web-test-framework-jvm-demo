@@ -10,9 +10,6 @@ Because these tests are packaged as an executable JAR against a third party webs
 
 ## Use
 
-### As an Application
-`gradlew run` will run the checks and generate a Serenity test report at `target/site/serenity/index.html`.
-
 ### As Part of the Check Lifecycle Task
 `gradlew check` will run the checks and generate a Serenity test report at `target/site/serenity/index.html`.
 
