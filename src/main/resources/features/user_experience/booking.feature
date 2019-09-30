@@ -10,7 +10,7 @@ Feature: Using the booking website
     This step runs for all scenarios in this feature.
     Given I want to use the booking website
 
-  Scenario Outline: Bookings are handled according to validity
+  Scenario Outline: Simple bookings are handled according to validity
     When I try to create a <booking type> booking
     Then that booking is <accepted or not>
 
@@ -21,7 +21,12 @@ Feature: Using the booking website
       | invalid      | not accepted    |
 
 
-    @pending
+  @pending
+  Scenario Outline: Other booking scenarios are handled according to validity
+    These have been moved into their own scenario outline because Serenity doesn't pick up @pending tags on example groups.
+    When I try to create a <booking type> booking
+    Then that booking is <accepted or not>
+
     Examples: other basic cases
     NOTE: @pending tests should be marked as pending by Serenity-Cucumber, there may be a bug where that fails if nested under other tags.
     These cases have not been implemented.
