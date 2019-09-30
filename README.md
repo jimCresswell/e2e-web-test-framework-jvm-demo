@@ -43,6 +43,8 @@ ChromeDrivers for Chrome 77 are packaged with the distribution and [launch scrip
 
 To specify your own ChromeDriver (e.g. if you need a different Chrome/ChromeDriver combination) set the `webdriver.driver.chrome="path/to/chromedriver"` environment variable.
 
+Note: the linux and mac launch scripts haven't been tested yet, if they are not working please raise an issue and in the meantime set the `webdriver.driver.chrome` environment variable manually.
+
 #### The Packaged Application Test Report
 The Serenity test report is generated in the unzipped application folder at `serenity_report/index.html`.
 
