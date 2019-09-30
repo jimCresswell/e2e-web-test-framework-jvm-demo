@@ -9,9 +9,12 @@ Because these tests are intended to be a standalone application running against 
 ### The Specifications
 
 The scenarios driving the tests are in the [features directory](src/main/resources/features/). The examples are divided into
-  * Specifications checked [through the UI](features/user_experience/booking.feature) of the service under test.
-  * Specifications checked [through the REST API](features/network_behaviour/booking_api.feature) of the service under test.
-  * Scenarios describing [known regressions or bugs](features/regressions/regressions.feature). These should be regularly reviewed to decide if the issues they describe are still a risk or if they should be deleted or moved to a specification.
+  * Specifications checked [through the UI](src/main/resources/features/user_experience/booking.feature) of the service under test.
+  * Specifications checked [through the REST API](src/main/resources/features/network_behaviour/booking_api.feature) of the service under test.
+  * Scenarios describing [known regressions or bugs](src/main/resources/features/regressions/regressions.feature). These should be regularly reviewed to decide if the issues they describe are still a risk or if they should be deleted or moved to a specification.
+  
+### Notes on test reliability.
+UI tests with WebDriver are flaky, they throw up false negative test failures frequently, due to WebDriver itself, network failures, browser rendering quirks, and the interactions of multiple asynchronous systems. Even with the small number of UI scenarios in this example test suite it is not completely reliable. This is one of the reasons that end-to-end tests through the UI should be kept to the minimum acceptable number, testing key user journeys only. More complete testing of the system and UI can pushed down to API contract tests, integration tests and UI component tests with mocked data and services. 
 
 ## Use
 
@@ -27,6 +30,8 @@ There is nothing Chrome specific about any of the tests. If you want to run agai
 To package the application use `gradlew assembleDist`.
 
 ### Using as a Packaged Application
+#### Known Issues
+There are scenarios marked as `@pending` intended as examples of potential further tests to implement. Normally these scenarios are categorised as pending by the runner and included in the test report as pending tests. When the scenarios are executed from the packaged application Serenity-Cucumber attempts to run the unimplemented `@pending` tests and throws exceptions. For the time being `@pending` scenarios have been explicitly excluded from the [packaged code test suite](src\main\java\test_demo\PackagedTestSuite.java).
 
 #### Starting the Application
 To use the packaged application, unzip it (`.zip` or `.tar` according to preference), then use the platform specific start scripts.
@@ -35,7 +40,7 @@ To use the packaged application, unzip it (`.zip` or `.tar` according to prefere
   * Linux/mac `test-demo`
 
 The application relies on a platform appropriate ChromeDriver binary being available and specified with the `webdriver.driver.chrome="path/to/chromedriver"` environment variable.
-ChromeDrivers for Chrome 77 are packaged with the distribution and [launch scripts](src/main/launchers) are provided in the package `bin` directory which set the appropriate environment variable and start the tests.
+ChromeDrivers for Chrome 77 are packaged with the distribution in the `lib/webdriver` directory and [launch scripts](src/main/launchers) are provided in the package `bin` directory which set the appropriate environment variable and start the tests.
 
   * Windows `windows_launcher.bat`
   * Linux `linux_launcher.sh`

@@ -11,6 +11,7 @@ public class DataInputPageElements {
     static By CHECK_OUT = By.cssSelector("#form #checkout");
     static By SAVE_BUTTON = By.cssSelector("#form input[value*=\"Save\"]");
 
+    static By PAGE_HEADER = By.cssSelector(".jumbotron");
     static By DATE_PICKER = By.cssSelector("#ui-datepicker-div");
 }
 

@@ -8,6 +8,7 @@ Feature: Testing known regressions
   Where appropriate fixed regression tests should be moved to a relevant
   specification.
 
+  @UI
   Scenario: Check-out should be after check-in
     Given I want to use the booking website
     When I try to create a booking with the check-out date before the check-in date

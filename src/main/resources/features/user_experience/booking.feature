@@ -10,7 +10,6 @@ Feature: Using the booking website
     This step runs for all scenarios in this feature.
     Given I want to use the booking website
 
-
   Scenario Outline: Bookings are handled according to validity
     When I try to create a <booking type> booking
     Then that booking is <accepted or not>
@@ -24,9 +23,10 @@ Feature: Using the booking website
 
     @pending
     Examples: other basic cases
+    NOTE: @pending tests should be marked as pending by Serenity-Cucumber, there may be a bug where that fails if nested under other tags.
     These cases have not been implemented.
     To implement just create the appropriate test data.
-    Don't putting a lot of data driven testing in user
+    Don't put a lot of data driven testing in user
     experience specifications, it makes them unreadable,
     move such testing to a lower level e.g. contract testing,
     integration testing or UI components with mocked services.

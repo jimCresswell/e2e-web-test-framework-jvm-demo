@@ -33,6 +33,7 @@ public class TestData {
      * TO DO: consider randomising all variables to improve relative
      * test coverage and avoid passing by accident. Be aware this
      * makes repeatable testing harder.
+     * TO DO: create a date generator that e.g. defaults to today and has options for "the past", "the future", "leap year".
      *
      * @return booking data.
      */

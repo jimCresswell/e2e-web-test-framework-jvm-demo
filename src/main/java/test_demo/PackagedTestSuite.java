@@ -13,6 +13,11 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {"pretty"},
         features = "../lib/features",
+        // Explicitly exclude @pending tags to stop them running in the packaged version,
+        // the runner is failing to mark them as pending then throwing an error when they
+        // don't work.
+        // TO DO: Figure out why @pending tags are ignored in the packaged app.
+        tags = {"~@pending"}
 )
 public class PackagedTestSuite {
 }

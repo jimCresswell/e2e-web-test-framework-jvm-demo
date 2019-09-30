@@ -149,12 +149,12 @@ public class Booking {
         int _systemId = systemId;
         String _firstName = data.get("firstname");
         String _lastName = data.get("lastname");
-        String _totalPrice = data.get("totalprice");
+        // The API response comes back with the price as an int.
+        String _totalPrice = data.get("totalprice").toString();
         Boolean _depositPaid = data.get("depositpaid");
         String _checkIn = data.get("bookingdates.checkin");
         String _checkOut = data.get("bookingdates.checkout");
 
         return new Booking(_systemId, _firstName, _lastName, _totalPrice, _depositPaid, _checkIn, _checkOut);
     }
-
 }
