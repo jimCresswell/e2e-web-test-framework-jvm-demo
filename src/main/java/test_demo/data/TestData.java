@@ -38,7 +38,7 @@ public class TestData {
      */
     @NotNull
     private static Booking getValidBooking() {
-        return new Booking("valid_" + generateRandomName(), "last name", 100, true, "2021-01-20", "2021-01-21");
+        return new Booking("valid_" + generateRandomName(), "last name", 100.00, true, "2021-01-20", "2021-01-21");
     }
 
     /**
@@ -56,7 +56,7 @@ public class TestData {
      */
     @NotNull
     private static Booking getOutBeforeInBooking() {
-        return new Booking("John " + generateRandomName(), "Smith", 100, true, "2021-01-20", "1970-01-01");
+        return new Booking("John " + generateRandomName(), "Smith", 100.00, true, "2021-01-20", "1970-01-01");
     }
 
     /**

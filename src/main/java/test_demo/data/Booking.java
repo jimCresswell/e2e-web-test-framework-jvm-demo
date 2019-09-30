@@ -12,6 +12,7 @@ public class Booking {
     private String firstName;
     private String lastName;
     // totalPrice stored as String to support user-like bad input
+    // Note the booking system also supports floating point notation e.g. `1.1e+99`
     private String totalPrice;
     private Boolean depositPaid;
     private String checkIn;
@@ -64,30 +65,11 @@ public class Booking {
      * @param checkIn
      * @param checkOut
      */
-    public Booking(int systemId, String firstName, String lastName, int totalPrice, Boolean depositPaid, String checkIn, String checkOut) {
+    public Booking(int systemId, String firstName, String lastName, String totalPrice, Boolean depositPaid, String checkIn, String checkOut) {
         this.systemId = systemId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.totalPrice = String.valueOf(totalPrice);
-        this.depositPaid = depositPaid;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
-    }
-
-    /**
-     * Without system booking ID, price as int.
-     *
-     * @param firstName
-     * @param lastName
-     * @param totalPrice
-     * @param depositPaid
-     * @param checkIn
-     * @param checkOut
-     */
-    public Booking(String firstName, String lastName, int totalPrice, Boolean depositPaid, String checkIn, String checkOut) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.totalPrice = String.valueOf(totalPrice);
+        this.totalPrice = totalPrice;
         this.depositPaid = depositPaid;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -107,6 +89,25 @@ public class Booking {
         this.firstName = firstName;
         this.lastName = lastName;
         this.totalPrice = totalPrice;
+        this.depositPaid = depositPaid;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
+
+    /**
+     * Without system booking ID, price as floating point number.
+     *
+     * @param firstName
+     * @param lastName
+     * @param totalPrice
+     * @param depositPaid
+     * @param checkIn
+     * @param checkOut
+     */
+    public Booking(String firstName, String lastName, Double totalPrice, boolean depositPaid, String checkIn, String checkOut) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.totalPrice = totalPrice.toString();
         this.depositPaid = depositPaid;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -136,7 +137,7 @@ public class Booking {
         int _systemId = Integer.parseInt(bookingDataList.get(0));
         String _firstName = bookingDataList.get(1);
         String _lastName = bookingDataList.get(2);
-        int _totalPrice = Integer.parseInt(bookingDataList.get(3));
+        String _totalPrice = bookingDataList.get(3);
         Boolean _depositPaid = getBoolean(bookingDataList.get(4));
         String _checkIn = bookingDataList.get(5);
         String _checkOut = bookingDataList.get(6);
@@ -148,7 +149,7 @@ public class Booking {
         int _systemId = systemId;
         String _firstName = data.get("firstname");
         String _lastName = data.get("lastname");
-        int _totalPrice = data.get("totalprice");
+        String _totalPrice = data.get("totalprice");
         Boolean _depositPaid = data.get("depositpaid");
         String _checkIn = data.get("bookingdates.checkin");
         String _checkOut = data.get("bookingdates.checkout");
