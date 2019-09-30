@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = {"pretty"},
         features = "../lib/features",
-        tags = {"@debug"}
 )
 public class PackagedTestSuite {
 }

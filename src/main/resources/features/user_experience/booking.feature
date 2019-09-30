@@ -21,10 +21,6 @@ Feature: Using the booking website
       | valid        | accepted        |
       | invalid      | not accepted    |
 
-    @debug
-    Examples: debug
-      | booking type | accepted or not |
-      | valid        | accepted        |
 
     @pending
     Examples: other basic cases
