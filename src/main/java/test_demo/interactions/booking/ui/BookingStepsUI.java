@@ -54,7 +54,14 @@ public class BookingStepsUI extends UIInteractionSteps {
 
         enterBookingData(booking);
 
-        $(SAVE_BUTTON).click();
+        // Work around. Click somewhere to close any open
+        // date-picker dialogues obscuring the save button.
+        WebElementFacade headerEl = $(".jumbotron");
+        headerEl.click();
+
+        $(SAVE_BUTTON)
+                .waitUntilClickable()
+                .click();
 
         return booking;
     }
