@@ -63,7 +63,10 @@ public class BookingStepsUI extends UIInteractionSteps {
 
         $(SAVE_BUTTON)
                 .withTimeoutOf(bookingWaitInSeconds, ChronoUnit.SECONDS)
-                .waitUntilClickable()
+                .waitUntilClickable();
+
+        // Relocating it in case a booking has come into the UI in the meantime and changed the element coordinates.
+        $(SAVE_BUTTON)
                 .click();
 
         return booking;
