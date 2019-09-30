@@ -6,7 +6,14 @@ The tests are driven from user-experience level specifications contained in ["fe
 
 ## Project Structure
 
-Because these tests are packaged as an executable JAR against a third party website the code lives in the `main` module rather than in `test`.
+Because these tests are intended to be a standalone application running against a third party website the "test" code lives in the `main` module rather than in `test`.
+
+### The Specifications
+
+The scenarios driving the tests are in the [features directory](src/main/resources/features/). The examples are divided into
+  * Specifications checked [through the UI](features/user_experience/booking.feature) of the service under test.
+  * Specifications checked [through the REST API](features/network_behaviour/booking_api.feature) of the service under test.
+  * Scenarios describing [known regressions or bugs](features/regressions/regressions.feature). These should be regularly reviewed to decide if the issues they describe are still a risk or if they should be deleted or moved to a specification.
 
 ## Use
 
