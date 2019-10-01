@@ -10,6 +10,8 @@ import java.io.IOException;
 /**
  * This is the entry point when the tests are initiated as a
  * standalone Java application.
+ *
+ * Running test suites from the command line with `gradlew check` is preferred.
  */
 public class TestRunner {
     public static void main(String[] args) throws IOException {
